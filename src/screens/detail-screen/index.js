@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 const styles = StyleSheet.create({
   constainer: {
@@ -18,7 +18,9 @@ const styles = StyleSheet.create({
 function DetailScreen() {
   return (
     <View style={styles.constainer}>
-      <Text style={styles.text}>this is detail screen</Text>
+      <TouchableOpacity>
+        <Text style={styles.text}>this is detail bitch!</Text>
+      </TouchableOpacity>
     </View>
   );
 }

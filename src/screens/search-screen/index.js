@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 function SearchScreen() {
   return (
     <View style={styles.constainer}>
-      <Text style={styles.text}>this is search screen</Text>
+      <Text style={styles.text}>this is search bitch!</Text>
     </View>
   );
 }

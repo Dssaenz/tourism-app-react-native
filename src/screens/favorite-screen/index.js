@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 function FavoriteScreen() {
   return (
     <View style={styles.constainer}>
-      <Text style={styles.text}>this is favorite screen</Text>
+      <Text style={styles.text}>this is favorite bitch!</Text>
     </View>
   );
 }

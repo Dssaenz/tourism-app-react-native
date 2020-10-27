@@ -1,4 +1,4 @@
-import Icon from './icon';
 import TabBar from './tab-bar';
+import BottomMenuItem from './bottom-menu-item';
 
-export { Icon, TabBar };
+export { TabBar, BottomMenuItem };

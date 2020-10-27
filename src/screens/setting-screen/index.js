@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    color: '#222222',
+    color: '#000',
     textAlign: 'center',
   },
 });
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 function SettingScreen() {
   return (
     <View style={styles.constainer}>
-      <Text style={styles.text}>this is setting screen</Text>
+      <Text style={styles.text}>this is setting bitch!</Text>
     </View>
   );
 }
