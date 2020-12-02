@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Platform, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { HomeScreen, DetailScreen, FavoriteScreen, SettingScreen, SearchScreen } from '@screens';
+import { HomeScreen, FavoriteScreen, SettingScreen, SearchScreen, DetailCountry } from '@screens';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TabBar } from '@components';
 
@@ -27,7 +27,7 @@ function HomeStackScreens({ navigation, route }) {
         headerShown: false,
       }}>
       <HomeStack.Screen name="Home" component={HomeScreen} />
-      <HomeStack.Screen name="Detail" component={DetailScreen} />
+      <HomeStack.Screen name="DetailCountry" component={DetailCountry} />
     </HomeStack.Navigator>
   );
 }

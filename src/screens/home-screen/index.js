@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import PropTypes from 'prop-types';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { ListCountries } from '@components';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const listTab = [
   {
@@ -23,14 +26,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginLeft: 15,
     justifyContent: 'space-between',
-    height: 120,
+    height: 50,
   },
   btntab: {
     padding: 10,
     alignItems: 'center',
-  },
-  btnTabActive: {
-    backgroundColor: '#ff0000',
   },
   title: {
     color: '#000',
@@ -38,31 +38,38 @@ const styles = StyleSheet.create({
   },
   titleActive: {
     color: '#3767EE',
+    fontWeight: 'bold',
   },
   pointer: {
     display: 'none',
   },
   pointActive: {
-    width: 10,
-    height: 10,
+    width: 7,
+    height: 7,
     borderRadius: 10,
     backgroundColor: '#3767EE',
   },
+  titleSection: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    marginLeft: '6%',
+    marginVertical: '4%',
+  },
 });
 
-const Tab1 = () => <Text>Hola</Text>;
 const Tab2 = () => <Text>Que</Text>;
 const Tab3 = () => <Text>Hace</Text>;
 
-function HomeScreen() {
+function HomeScreen({ navigation }) {
   const [status, setStatus] = useState('Sights');
 
   const setStatusFilter = (title) => {
     setStatus(title);
   };
   return (
-    <SafeAreaView>
-      <View style={{ wdth: '100%', height: '100%', backgroundColor: '#EBF1FF' }}>
+    <SafeAreaView style={{ backgroundColor: '#F6F7FD' }}>
+      <View style={{ wdth: '100%', height: '100%', backgroundColor: '#F6F7FD' }}>
+        <Text style={styles.titleSection}>Explore</Text>
         <View style={styles.constainer}>
           {listTab.map((list) => (
             <TouchableOpacity
@@ -76,12 +83,57 @@ function HomeScreen() {
             </TouchableOpacity>
           ))}
         </View>
-        {status === 'Sights' && <Tab1 />}
+        {status === 'Sights' && (
+          <ScrollView style={{ flex: 1 }}>
+            <View style={{ width: '100%', height: 350 }}>
+              <ListCountries navigation={navigation} />
+            </View>
+            <View style={{ width: '100%', height: 40 }}>
+              <Text>Hola</Text>
+            </View>
+            <View style={{ width: '100%', height: 40 }}>
+              <Text>Hola</Text>
+            </View>
+            <View style={{ width: '100%', height: 40 }}>
+              <Text>Hola</Text>
+            </View>
+            <View style={{ width: '100%', height: 40 }}>
+              <Text>Hola</Text>
+            </View>
+            <View style={{ width: '100%', height: 40 }}>
+              <Text>Hola</Text>
+            </View>
+            <View style={{ width: '100%', height: 40 }}>
+              <Text>Hola</Text>
+            </View>
+            <View style={{ width: '100%', height: 40 }}>
+              <Text>Hola</Text>
+            </View>
+            <View style={{ width: '100%', height: 40 }}>
+              <Text>Hola</Text>
+            </View>
+            <View style={{ width: '100%', height: 40 }}>
+              <Text>Hola</Text>
+            </View>
+            <View style={{ width: '100%', height: 40 }}>
+              <Text>Hola</Text>
+            </View>
+            <View style={{ width: '100%', height: 40 }}>
+              <Text>Hola</Text>
+            </View>
+          </ScrollView>
+        )}
         {status === 'Tours' && <Tab2 />}
         {status === 'Adventures' && <Tab3 />}
       </View>
     </SafeAreaView>
   );
 }
+
+HomeScreen.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default HomeScreen;

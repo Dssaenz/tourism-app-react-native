@@ -12,7 +12,7 @@ const ContentIcon = styled.View`
 function BottomMenuItem({ iconName, isCurrent }) {
   return (
     <ContentIcon>
-      <Icon name={iconName} size={20} style={{ color: isCurrent ? '#FFFFFF' : '#3767EE' }} />
+      <Icon name={iconName} size={20} style={{ color: isCurrent ? '#FFFFFF' : '#000' }} />
     </ContentIcon>
   );
 }
