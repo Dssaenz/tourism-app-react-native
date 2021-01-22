@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
 import PropTypes from 'prop-types';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ListCountries } from '@components';
@@ -68,7 +68,8 @@ function HomeScreen({ navigation }) {
   };
   return (
     <SafeAreaView style={{ backgroundColor: '#F6F7FD' }}>
-      <View style={{ wdth: '100%', height: '100%', backgroundColor: '#F6F7FD' }}>
+      <StatusBar backgroundColor="#f0f2fc" barStyle="dark-content" />
+      <ScrollView style={{ width: '100%', height: '100%', backgroundColor: '#F6F7FD' }}>
         <Text style={styles.titleSection}>Explore</Text>
         <View style={styles.constainer}>
           {listTab.map((list) => (
@@ -84,7 +85,7 @@ function HomeScreen({ navigation }) {
           ))}
         </View>
         {status === 'Sights' && (
-          <ScrollView style={{ flex: 1 }}>
+          <View>
             <View style={{ width: '100%', height: 350 }}>
               <ListCountries navigation={navigation} />
             </View>
@@ -121,11 +122,11 @@ function HomeScreen({ navigation }) {
             <View style={{ width: '100%', height: 40 }}>
               <Text>Hola</Text>
             </View>
-          </ScrollView>
+          </View>
         )}
         {status === 'Tours' && <Tab2 />}
         {status === 'Adventures' && <Tab3 />}
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }

@@ -1,11 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { tuturial2Specc, SPACING } from '@utils/dimentions';
-
-const { ITEM_WIDTH } = tuturial2Specc;
 
 const styled = StyleSheet.create({
   constainer: {
@@ -17,37 +14,84 @@ const styled = StyleSheet.create({
     color: '#222222',
     textAlign: 'center',
   },
+  modal: {
+    width: '100%',
+    height: '40%',
+    backgroundColor: '#FFF',
+    position: 'absolute',
+    bottom: 0,
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    paddingLeft: 35,
+    paddingRight: 100,
+    paddingTop: 30,
+  },
   location: {
-    fontSize: 30,
+    fontSize: 32,
     color: '#FFF',
-    fontWeight: '800',
-    width: ITEM_WIDTH * 0.8,
+    fontWeight: '900',
     textTransform: 'uppercase',
     position: 'absolute',
-    top: 60,
-    left: SPACING * 2,
+    bottom: 150,
+    left: 30,
+  },
+  description: {
+    fontWeight: 'bold',
+    fontSize: 21,
+  },
+  available: {
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 
 function DetailCountry({ navigation, route }) {
   const { item } = route.params;
   return (
-    <View style={{ flex: 1 }}>
-      <Icon
-        name="arrow-back"
-        size={24}
-        color="#FFF"
-        style={{ paddingHorizontal: SPACING, position: 'absolute', top: 25, left: 10, zIndex: 2 }}
-        onPress={() => navigation.goBack()}
-      />
-      <View style={[StyleSheet.absoluteFillObject]}>
-        <Image
-          source={{ uri: item.image }}
-          style={[StyleSheet.absoluteFillObject, { resizeMode: 'cover' }]}
-        />
+    <>
+      <StatusBar backgroundColor="#000" barStyle="light-content" />
+      <View style={{ width: '100%', height: '100%', position: 'relative' }}>
+        <View style={{ width: '100%', height: '70%', position: 'absolute', top: 0 }}>
+          <Icon
+            name="arrow-back"
+            size={34}
+            color="#FFF"
+            style={{ position: 'absolute', top: 30, left: 25, zIndex: 100 }}
+            onPress={() => navigation.goBack()}
+          />
+          <Icon
+            name="ios-share-outline"
+            size={31}
+            color="#FFF"
+            style={{ position: 'absolute', top: 30, right: 25, zIndex: 100 }}
+            onPress={() => navigation.goBack()}
+          />
+          <Image
+            source={{ uri: item.image }}
+            style={[StyleSheet.absoluteFillObject, { resizeMode: 'cover' }]}
+          />
+          <Text style={[styled.location]}>{item.location}</Text>
+        </View>
+        <View style={styled.modal}>
+          <Text style={styled.description}>{item.description}</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 18 }}>
+            <Text style={{ color: '#898b8f', fontSize: 16, marginRight: 5 }}>Available:</Text>
+            <Text style={styled.available}>{item.available}</Text>
+          </View>
+
+          <View style={{ flexDirection: 'row', marginTop: 8 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text style={{ color: '#898b8f', fontSize: 16, marginRight: 5 }}>Duration:</Text>
+              <Text style={styled.available}>{item.duration} hours</Text>
+            </View>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 25 }}>
+              <Text style={{ color: '#898b8f', fontSize: 16, marginRight: 5 }}>Price:</Text>
+              <Text style={styled.available}>{item.price} $</Text>
+            </View>
+          </View>
+        </View>
       </View>
-      <Text style={[styled.location]}>{item.location}</Text>
-    </View>
+    </>
   );
 }
 

@@ -1,9 +1,8 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import { View, StyleSheet, TouchableOpacity, Animated } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 import data from '@utils/location';
 import { tuturial2Specc, SPACING } from '@utils/dimentions';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import { AirbnbRating } from 'react-native-ratings';
 
 const { ITEM_WIDTH, RADIUS, FULL_SIZE } = tuturial2Specc;
@@ -28,6 +27,7 @@ const styled = StyleSheet.create({
     position: 'absolute',
     bottom: 105,
     left: 20,
+    zIndex: 100,
   },
   daysContainer: {
     position: 'absolute',
@@ -41,13 +41,14 @@ const styled = StyleSheet.create({
     alignItems: 'center',
   },
   days: {
-    fontWeight: '800',
-    color: '#FFF',
+    fontWeight: 'bold',
+    color: '#3767EE',
     fontSize: 18,
   },
   textDays: {
     fontSize: 10,
-    color: '#FFF',
+    color: '#3767EE',
+    marginTop: -5,
   },
 });
 
@@ -94,11 +95,12 @@ function ListCountries({ navigation }) {
                 ]}
               />
             </View>
-            <TouchableOpacity style={styled.daysContainer}>
-              <Icon name="favorite" size={25} style={{ color: '#3767EE' }} />
-            </TouchableOpacity>
+            <View style={styled.daysContainer}>
+              <Text style={styled.days}>{item.numberOfDays}</Text>
+              <Text style={styled.textDays}>Days</Text>
+            </View>
             <Animated.View style={[styled.rating, { transform: [{ translateX }] }]}>
-              <AirbnbRating count={5} showRating={false} defaultRating={item.rating} size={22} />
+              <AirbnbRating count={5} showRating={false} defaultRating={item.rating} size={18} />
             </Animated.View>
             <Animated.Text style={[styled.location, { transform: [{ translateX }] }]}>
               {item.location}
