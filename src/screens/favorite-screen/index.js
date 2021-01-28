@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import Storage from '../../libs/storage';
 
 const styles = StyleSheet.create({
   constainer: {
@@ -16,9 +17,31 @@ const styles = StyleSheet.create({
 });
 
 function FavoriteScreen() {
+  const [favoriteCity, setFavorites] = useState([]);
+
+  const getFavorites = async () => {
+    try {
+      const allKeys = await Storage.instance.getAllKeys();
+      const keys = allKeys.filter((key) => key.includes('favorite-'));
+      const favs = await Storage.instance.multiGet(keys);
+
+      const favorites = favs.map((item) => JSON.parse(item[1]));
+      setFavorites(favorites);
+    } catch (err) {
+      console.log(err, 'error get favorites');
+    }
+  };
+
+  useEffect(() => {
+    getFavorites();
+  }, []);
+
   return (
     <View style={styles.constainer}>
-      <Text style={styles.text}>this is favorite bitch!</Text>
+      {favoriteCity.map((item) => {
+        console.log(item);
+        return <Text>Hola</Text>;
+      })}
     </View>
   );
 }

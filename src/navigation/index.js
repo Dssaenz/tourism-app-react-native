@@ -46,7 +46,7 @@ const FavoriteStack = createStackNavigator();
 
 function FavoriteStackScreens() {
   return (
-    <FavoriteStack.Navigator options={{ headerShown: false }}>
+    <FavoriteStack.Navigator screenOptions={{ headerShown: false }}>
       <FavoriteStack.Screen name="Favorite" component={FavoriteScreen} />
     </FavoriteStack.Navigator>
   );
