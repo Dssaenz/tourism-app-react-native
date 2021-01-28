@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { View, Text, StyleSheet } from 'react-native';
 import Storage from '../../libs/storage';
 
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function FavoriteScreen() {
+function FavoriteScreen({ navigation }) {
   const [favoriteCity, setFavorites] = useState([]);
 
   const getFavorites = async () => {
@@ -33,8 +34,11 @@ function FavoriteScreen() {
   };
 
   useEffect(() => {
-    getFavorites();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      getFavorites();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <View style={styles.constainer}>
@@ -45,5 +49,11 @@ function FavoriteScreen() {
     </View>
   );
 }
+
+FavoriteScreen.propTypes = {
+  navigation: PropTypes.shape({
+    addListener: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default FavoriteScreen;
