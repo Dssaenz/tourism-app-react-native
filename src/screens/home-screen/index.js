@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, StatusBar, FlatList } from 'react-native';
 import PropTypes from 'prop-types';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ListCountries } from '@components';
+import { ListCountries, CardPlace } from '@components';
 import { ScrollView } from 'react-native-gesture-handler';
+import data from '../../utils/places';
 
 const listTab = [
   {
@@ -55,10 +56,13 @@ const styles = StyleSheet.create({
     marginLeft: '6%',
     marginVertical: '4%',
   },
+  subtitle: {
+    color: '#000',
+    marginBottom: 5,
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
 });
-
-const Tab2 = () => <Text>Que</Text>;
-const Tab3 = () => <Text>Hace</Text>;
 
 function HomeScreen({ navigation }) {
   const [status, setStatus] = useState('Sights');
@@ -66,10 +70,11 @@ function HomeScreen({ navigation }) {
   const setStatusFilter = (title) => {
     setStatus(title);
   };
+
   return (
     <SafeAreaView style={{ backgroundColor: '#F6F7FD' }}>
       <StatusBar backgroundColor="#f0f2fc" barStyle="dark-content" />
-      <ScrollView style={{ width: '100%', height: '100%', backgroundColor: '#F6F7FD' }}>
+      <ScrollView style={{ width: '100%', height: '90%', backgroundColor: '#F6F7FD' }}>
         <Text style={styles.titleSection}>Explore</Text>
         <View style={styles.constainer}>
           {listTab.map((list) => (
@@ -84,48 +89,26 @@ function HomeScreen({ navigation }) {
             </TouchableOpacity>
           ))}
         </View>
-        {status === 'Sights' && (
-          <View>
-            <View style={{ width: '100%', height: 350 }}>
-              <ListCountries navigation={navigation} />
-            </View>
-            <View style={{ width: '100%', height: 40 }}>
-              <Text>Hola</Text>
-            </View>
-            <View style={{ width: '100%', height: 40 }}>
-              <Text>Hola</Text>
-            </View>
-            <View style={{ width: '100%', height: 40 }}>
-              <Text>Hola</Text>
-            </View>
-            <View style={{ width: '100%', height: 40 }}>
-              <Text>Hola</Text>
-            </View>
-            <View style={{ width: '100%', height: 40 }}>
-              <Text>Hola</Text>
-            </View>
-            <View style={{ width: '100%', height: 40 }}>
-              <Text>Hola</Text>
-            </View>
-            <View style={{ width: '100%', height: 40 }}>
-              <Text>Hola</Text>
-            </View>
-            <View style={{ width: '100%', height: 40 }}>
-              <Text>Hola</Text>
-            </View>
-            <View style={{ width: '100%', height: 40 }}>
-              <Text>Hola</Text>
-            </View>
-            <View style={{ width: '100%', height: 40 }}>
-              <Text>Hola</Text>
-            </View>
-            <View style={{ width: '100%', height: 40 }}>
-              <Text>Hola</Text>
-            </View>
-          </View>
-        )}
-        {status === 'Tours' && <Tab2 />}
-        {status === 'Adventures' && <Tab3 />}
+        {status === 'Sights' && <ListCountries navigation={navigation} />}
+        {status === 'Tours' && <ListCountries navigation={navigation} />}
+        {status === 'Adventures' && <ListCountries navigation={navigation} />}
+        <View style={{ paddingVertical: 12, marginHorizontal: 18 }}>
+          <Text style={styles.subtitle}>Popular</Text>
+          <FlatList
+            data={data}
+            keyExtractor={(item) => item.id}
+            renderItem={(item) => {
+              const { item: dataPlace } = item;
+              return (
+                <CardPlace
+                  placeImage={dataPlace.image}
+                  place={dataPlace.name}
+                  date={dataPlace.date}
+                />
+              );
+            }}
+          />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

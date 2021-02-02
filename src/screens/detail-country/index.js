@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, StyleSheet, Image, StatusBar, TouchableOpacity } from 'react-native';
+import { Share, View, Text, StyleSheet, Image, StatusBar, TouchableOpacity } from 'react-native';
 import { default as IconIons } from 'react-native-vector-icons/Ionicons';
 import { default as IconAnt } from 'react-native-vector-icons/AntDesign';
 import Slider from 'react-native-slider';
@@ -97,6 +97,24 @@ function DetailCountry({ navigation, route }) {
     persons = 10;
   }
 
+  const onShare = async () => {
+    console.log('caos!!');
+    try {
+      const result = await Share.share({
+        message: 'React Native | A framework for building native apps using React',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // hola
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // hola 2
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const addFavorite = async () => {
     const place = JSON.stringify(item);
     const key = `favorite-${item.key}`;
@@ -155,7 +173,7 @@ function DetailCountry({ navigation, route }) {
             size={32}
             color="#FFF"
             style={{ position: 'absolute', top: 30, right: 25, zIndex: 100 }}
-            onPress={() => navigation.goBack()}
+            onPress={onShare}
           />
           <Image
             source={{ uri: item.image }}

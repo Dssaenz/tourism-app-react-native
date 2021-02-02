@@ -8,6 +8,10 @@ import { AirbnbRating } from 'react-native-ratings';
 const { ITEM_WIDTH, RADIUS, FULL_SIZE } = tuturial2Specc;
 
 const styled = StyleSheet.create({
+  listCountries: {
+    width: '100%',
+    height: 350,
+  },
   itemContainer: {
     width: ITEM_WIDTH,
     height: '90%',
@@ -57,6 +61,7 @@ function ListCountries({ navigation }) {
 
   return (
     <Animated.FlatList
+      style={styled.listCountries}
       data={data}
       keyExtractor={(item) => item.key}
       horizontal
@@ -76,7 +81,7 @@ function ListCountries({ navigation }) {
 
         const scale = scrollX.interpolate({
           inputRange,
-          outputRange: [1, 1.1, 1],
+          outputRange: [1, 1.2, 1],
         });
 
         return (
