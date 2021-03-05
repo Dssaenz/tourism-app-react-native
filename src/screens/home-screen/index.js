@@ -75,7 +75,7 @@ function HomeScreen({ navigation }) {
     <SafeAreaView style={{ backgroundColor: '#F6F7FD' }}>
       <StatusBar backgroundColor="#f0f2fc" barStyle="dark-content" />
       <ScrollView style={{ width: '100%', height: '90%', backgroundColor: '#F6F7FD' }}>
-        <Text style={styles.titleSection}>Explore</Text>
+        <Text style={styles.titleSection}>Enjoy</Text>
         <View style={styles.constainer}>
           {listTab.map((list) => (
             <TouchableOpacity

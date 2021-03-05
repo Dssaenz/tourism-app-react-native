@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Storage from '../../libs/storage';
+import { FavoriteCard } from '../../components';
 
 const styles = StyleSheet.create({
   constainer: {
     flex: 1,
-    backgroundColor: '#bbbbbb',
+    backgroundColor: '#F6F7FD',
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingBottom: 40,
+  },
+  titleSection: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    marginLeft: '6%',
+    marginVertical: '4%',
   },
   text: {
     fontSize: 18,
@@ -40,13 +48,25 @@ function FavoriteScreen({ navigation }) {
     return unsubscribe;
   }, [navigation]);
 
+  if (favoriteCity.length === 0) {
+    return (
+      <View style={styles.constainer}>
+        <Text>Not favorites added</Text>
+      </View>
+    );
+  }
   return (
-    <View style={styles.constainer}>
-      {favoriteCity.map((item) => {
-        console.log(item);
-        return <Text>Hola</Text>;
-      })}
-    </View>
+    <SafeAreaView style={{ backgroundColor: '#F6F7FD' }}>
+      <ScrollView>
+        <Text style={styles.titleSection}>Favorites</Text>
+        <View style={styles.constainer}>
+          {favoriteCity.map((item) => {
+            console.log(item);
+            return <FavoriteCard favoriteImage={item.image} name={item.location} />;
+          })}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
