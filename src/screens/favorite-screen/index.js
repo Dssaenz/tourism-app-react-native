@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F6F7FD',
     alignItems: 'center',
-    paddingBottom: 40,
   },
   titleSection: {
     fontSize: 40,
@@ -57,12 +56,11 @@ function FavoriteScreen({ navigation }) {
   }
   return (
     <SafeAreaView style={{ backgroundColor: '#F6F7FD' }}>
-      <ScrollView>
+      <ScrollView style={{ width: '100%', height: '100%', backgroundColor: '#F6F7FD' }}>
         <Text style={styles.titleSection}>Favorites</Text>
         <View style={styles.constainer}>
           {favoriteCity.map((item) => {
-            console.log(item);
-            return <FavoriteCard favoriteImage={item.image} name={item.location} />;
+            return <FavoriteCard navigation={navigation} item={item} />;
           })}
         </View>
       </ScrollView>

@@ -208,7 +208,7 @@ function DetailCountry({ navigation, route }) {
             <Text style={styled.available}>{item.available}</Text>
           </View>
 
-          <View style={{ flexDirection: 'row', marginTop: 8 }}>
+          <View style={{ flexDirection: 'row', marginTop: 8, marginBottom: 12 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Text style={{ color: '#898b8f', fontSize: 16, marginRight: 5 }}>Duration:</Text>
               <Text style={styled.available}>{item.duration} hours</Text>
@@ -221,53 +221,49 @@ function DetailCountry({ navigation, route }) {
           <View
             style={{
               width: '100%',
-              justifyContent: 'center',
-              marginTop: 12,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: 15,
             }}>
-            <Slider
-              value={number}
-              trackStyle={styled.track}
-              thumbStyle={styled.thumb}
-              onValueChange={(value) => setNumber(value)}
-              minimumTrackTintColor="#3867EF"
-            />
-            <Text style={{ color: '#898b8f', fontSize: 15 }}>{persons} persons</Text>
+            <View style={{ width: '70%' }}>
+              <Slider
+                value={number}
+                trackStyle={styled.track}
+                thumbStyle={styled.thumb}
+                onValueChange={(value) => setNumber(value)}
+                minimumTrackTintColor="#3867EF"
+              />
+            </View>
+            <Text style={{ color: '#898b8f', fontSize: 16 }}>{persons} Persons</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
+            <Text
+              style={{
+                fontSize: 25,
+                fontWeight: 'bold',
+                color: '#000',
+              }}>
+              Total: 60$
+            </Text>
+            <TouchableOpacity
+              style={{
+                backgroundColor: '#3767EE',
+                width: '45%',
+                height: 80,
+                borderRadius: 80,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text style={styled.btnText}>Book now</Text>
+            </TouchableOpacity>
           </View>
         </View>
-        <View
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            height: 100,
-            justifyContent: 'center',
-          }}>
-          <Text
-            style={{
-              fontSize: 25,
-              fontWeight: 'bold',
-              color: '#000',
-              marginLeft: '18%',
-            }}>
-            Total: 60$
-          </Text>
-        </View>
-        <TouchableOpacity
-          style={{
-            backgroundColor: '#3767EE',
-            width: '45%',
-            height: 100,
-            borderTopLeftRadius: 46,
-            borderTopRightRadius: 46,
-            borderBottomLeftRadius: 46,
-            position: 'absolute',
-            bottom: 0,
-            right: 0,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Text style={styled.btnText}>Book now</Text>
-        </TouchableOpacity>
       </View>
     </>
   );

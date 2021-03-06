@@ -18,20 +18,30 @@ const styled = StyleSheet.create({
     margin: SPACING,
   },
   location: {
-    fontSize: 30,
+    fontSize: 25,
     color: '#FFF',
     fontWeight: '800',
-    width: ITEM_WIDTH * 0.8,
     textTransform: 'uppercase',
-    position: 'absolute',
-    bottom: 60,
-    left: 20,
   },
   rating: {
     position: 'absolute',
-    bottom: 105,
-    left: 20,
-    zIndex: 100,
+    bottom: 0,
+    width: '100%',
+    height: 100,
+    alignItems: 'flex-start',
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    paddingTop: 10,
+    paddingLeft: 15,
+  },
+  box: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    height: 100,
+    backgroundColor: 'rgba(0,0,0,0)',
+    zIndex: 10,
   },
   daysContainer: {
     position: 'absolute',
@@ -74,11 +84,6 @@ function ListCountries({ navigation }) {
       renderItem={({ item, index }) => {
         const inputRange = [(index - 1) * FULL_SIZE, index * FULL_SIZE, (index + 1) * FULL_SIZE];
 
-        const translateX = scrollX.interpolate({
-          inputRange,
-          outputRange: [ITEM_WIDTH, 0, -ITEM_WIDTH],
-        });
-
         const scale = scrollX.interpolate({
           inputRange,
           outputRange: [1, 1.2, 1],
@@ -89,7 +94,8 @@ function ListCountries({ navigation }) {
             onPress={() => {
               navigation.navigate('DetailCountry', { item });
             }}
-            style={styled.itemContainer}>
+            style={styled.itemContainer}
+            activeOpacity={2}>
             <View
               style={[StyleSheet.absoluteFillObject, { overflow: 'hidden', borderRadius: RADIUS }]}>
               <Animated.Image
@@ -104,12 +110,13 @@ function ListCountries({ navigation }) {
               <Text style={styled.days}>{item.numberOfDays}</Text>
               <Text style={styled.textDays}>Days</Text>
             </View>
-            <Animated.View style={[styled.rating, { transform: [{ translateX }] }]}>
-              <AirbnbRating count={5} showRating={false} defaultRating={item.rating} size={18} />
-            </Animated.View>
-            <Animated.Text style={[styled.location, { transform: [{ translateX }] }]}>
-              {item.location}
-            </Animated.Text>
+            <View style={styled.box} />
+            <View style={styled.rating}>
+              <View>
+                <AirbnbRating count={5} showRating={false} defaultRating={item.rating} size={18} />
+              </View>
+              <Text style={styled.location}>{item.location}</Text>
+            </View>
           </TouchableOpacity>
         );
       }}

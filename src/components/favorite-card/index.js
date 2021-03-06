@@ -1,8 +1,7 @@
-/* eslint-disable import/no-named-default */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { default as MaterialIcons } from 'react-native-vector-icons/MaterialIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const styles = StyleSheet.create({
   constainer: {
@@ -40,19 +39,22 @@ const styles = StyleSheet.create({
   },
 });
 
-function FavoriteCard({ favoriteImage, name }) {
+function FavoriteCard({ navigation, item }) {
   return (
-    <TouchableOpacity style={styles.constainer}>
+    <TouchableOpacity
+      style={styles.constainer}
+      onPress={() => navigation.navigate('DetailCountry', { item })}
+      activeOpacity={0.8}>
       <Image
         style={{
           width: '100%',
           height: '100%',
           borderRadius: 25,
         }}
-        source={{ uri: favoriteImage }}
+        source={{ uri: item.image }}
       />
       <View style={styles.section}>
-        <Text style={styles.text}>{name}</Text>
+        <Text style={styles.text}>{item.location}</Text>
         <MaterialIcons
           name="arrow-forward-ios"
           size={32}
@@ -65,8 +67,10 @@ function FavoriteCard({ favoriteImage, name }) {
 }
 
 FavoriteCard.propTypes = {
-  favoriteImage: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+  item: PropTypes.objectOf.isRequired,
 };
 
 export default FavoriteCard;

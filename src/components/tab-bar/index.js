@@ -1,103 +1,64 @@
-/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-nested-ternary */
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { View, TouchableOpacity, Dimensions, StyleSheet, Animated } from 'react-native';
-import BottomMenuItem from '../bottom-menu-item';
-
-const style = StyleSheet.create({
-  tabContainer: {
-    height: 80,
-    shadowOffset: {
-      width: 0,
-      height: -1,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4.0,
-    backgroundColor: '#FFF',
-    borderTopRightRadius: 30,
-    borderTopLeftRadius: 30,
-    elevation: 10,
-    position: 'absolute',
-    bottom: 0,
-  },
-  slider: {
-    height: 50,
-    position: 'absolute',
-    top: 14,
-    left: 25,
-    backgroundColor: '#3767EE',
-    borderRadius: 60,
-  },
-});
+import { View, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 function TabBar({ state, descriptors, navigation }) {
-  const [translateValue] = useState(new Animated.Value(0));
-  const totalWidth = Dimensions.get('window').width;
-  const tabWidth = totalWidth / state.routes.length;
   return (
-    <View style={[style.tabContainer, { width: totalWidth }]}>
-      <View style={{ flexDirection: 'row' }}>
-        <Animated.View
-          style={[
-            style.slider,
-            {
-              transform: [{ translateX: translateValue }],
-              width: tabWidth - 50,
-            },
-          ]}
-        />
+    <View
+      style={{
+        flexDirection: 'row',
+        backgroundColor: 'rgba(0,0,0,0.1)',
+        height: 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 25,
+      }}>
+      {state.routes.map((route, index) => {
+        const { options } = descriptors[route.key];
+        const label =
+          options.tabBarLabel !== undefined
+            ? options.tabBarLabel
+            : options.title !== undefined
+            ? options.title
+            : route.name;
 
-        {state.routes.map((route, index) => {
-          const { options } = descriptors[route.key];
-          const label =
-            options.tabBarLabel !== undefined
-              ? options.tabBarLabel
-              : options.title !== undefined
-              ? options.title
-              : route.name;
-          const isFocused = state.index === index;
+        const isFocused = state.index === index;
 
-          const onPress = () => {
-            const event = navigation.emit({
-              type: 'tabPress',
-              target: route.key,
-              canPreventDefault: true,
-            });
+        const onPress = () => {
+          const event = navigation.emit({
+            type: 'tabPress',
+            target: route.key,
+            canPreventDefault: true,
+          });
 
-            if (!isFocused && !event.defaultPrevented) {
-              navigation.navigate(route.name);
-            }
+          if (!isFocused && !event.defaultPrevented) {
+            navigation.navigate(route.name);
+          }
+        };
 
-            Animated.spring(translateValue, {
-              toValue: index * tabWidth,
-              velocity: 10,
-              useNativeDriver: true,
-            }).start();
-          };
+        const onLongPress = () => {
+          navigation.emit({
+            type: 'tabLongPress',
+            target: route.key,
+          });
+        };
 
-          const onLongPress = () => {
-            navigation.emit({
-              type: 'tabLongPress',
-              target: route.key,
-            });
-          };
-
-          return (
-            <TouchableOpacity
-              accessibilityRole="button"
-              accessibilityStates={isFocused ? ['selected'] : []}
-              accessibilityLabel={options.tabBarAccessibilityLabel}
-              testID={options.tabBarTestID}
-              onPress={onPress}
-              onLongPress={onLongPress}
-              style={{ flex: 1 }}
-              key={index}>
-              <BottomMenuItem iconName={label.toString()} isCurrent={isFocused} />
-            </TouchableOpacity>
-          );
-        })}
-      </View>
+        return (
+          <TouchableOpacity
+            accessibilityRole="button"
+            accessibilityState={isFocused ? { selected: true } : {}}
+            accessibilityLabel={options.tabBarAccessibilityLabel}
+            testID={options.tabBarTestID}
+            onPress={onPress}
+            onLongPress={onLongPress}
+            style={{ flex: 1, alignItems: 'center' }}>
+            <Icon name={label.toString()} color={isFocused ? '#195DDD' : '#3A3C41'} size={26} />
+          </TouchableOpacity>
+        );
+      })}
     </View>
   );
 }

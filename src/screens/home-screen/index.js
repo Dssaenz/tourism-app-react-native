@@ -74,8 +74,8 @@ function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={{ backgroundColor: '#F6F7FD' }}>
       <StatusBar backgroundColor="#f0f2fc" barStyle="dark-content" />
-      <ScrollView style={{ width: '100%', height: '90%', backgroundColor: '#F6F7FD' }}>
-        <Text style={styles.titleSection}>Enjoy</Text>
+      <ScrollView style={{ width: '100%', height: '100%', backgroundColor: '#F6F7FD' }}>
+        <Text style={styles.titleSection}>Explore</Text>
         <View style={styles.constainer}>
           {listTab.map((list) => (
             <TouchableOpacity
@@ -92,7 +92,7 @@ function HomeScreen({ navigation }) {
         {status === 'Sights' && <ListCountries navigation={navigation} />}
         {status === 'Tours' && <ListCountries navigation={navigation} />}
         {status === 'Adventures' && <ListCountries navigation={navigation} />}
-        <View style={{ paddingVertical: 12, marginHorizontal: 18 }}>
+        <View style={{ marginHorizontal: 18 }}>
           <Text style={styles.subtitle}>Popular</Text>
           <FlatList
             data={data}

@@ -1,7 +1,6 @@
 /* eslint-disable no-var */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Platform, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen, FavoriteScreen, SettingScreen, SearchScreen, DetailCountry } from '@screens';
@@ -44,10 +43,18 @@ function SearchStackScreens() {
 
 const FavoriteStack = createStackNavigator();
 
-function FavoriteStackScreens() {
+function FavoriteStackScreens({ navigation, route }) {
+  if (route.state && route.state.index > 0) {
+    tabBarVisible = false;
+    navigation.setOptions({ tabBarVisible: false });
+  } else {
+    navigation.setOptions({ tabBarVisible: true });
+    tabBarVisible = true;
+  }
   return (
     <FavoriteStack.Navigator screenOptions={{ headerShown: false }}>
       <FavoriteStack.Screen name="Favorite" component={FavoriteScreen} />
+      <HomeStack.Screen name="DetailCountry" component={DetailCountry} />
     </FavoriteStack.Navigator>
   );
 }
@@ -65,30 +72,35 @@ function SettingStackScreens() {
 function Navigation() {
   const Tab = createBottomTabNavigator();
   return (
-    <View style={{ flex: 1, position: 'relative' }}>
-      <NavigationContainer>
-        <Tab.Navigator
-          tabBar={(props) =>
-            tabBarVisible ? (
-              <TabBar
-                state={props.state}
-                descriptors={props.descriptors}
-                navigation={props.navigation}
-              />
-            ) : null
-          }>
-          <Tab.Screen name="home" component={HomeStackScreens} />
-          <Tab.Screen name="search1" component={SearchStackScreens} />
-          <Tab.Screen name="staro" component={FavoriteStackScreens} />
-          <Tab.Screen name="setting" component={SettingStackScreens} />
-        </Tab.Navigator>
-      </NavigationContainer>
-      {Platform.OS === 'ios' && <View style={{ paddingBottom: 14 }} />}
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator
+        initialRouteName="home"
+        tabBar={(props) =>
+          tabBarVisible ? (
+            <TabBar
+              state={props.state}
+              descriptors={props.descriptors}
+              navigation={props.navigation}
+            />
+          ) : null
+        }>
+        <Tab.Screen name="home" component={HomeStackScreens} />
+        <Tab.Screen name="search1" component={SearchStackScreens} />
+        <Tab.Screen name="staro" component={FavoriteStackScreens} />
+        <Tab.Screen name="setting" component={SettingStackScreens} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 
 HomeStackScreens.propTypes = {
+  navigation: PropTypes.shape({
+    setOptions: PropTypes.func,
+  }).isRequired,
+  route: PropTypes.oneOfType([PropTypes.object]).isRequired,
+};
+
+FavoriteStackScreens.propTypes = {
   navigation: PropTypes.shape({
     setOptions: PropTypes.func,
   }).isRequired,
